@@ -1,77 +1,46 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10029769&assignment_repo_type=AssignmentRepo)
-# Welcome to GitHub
 
-캡스톤 팀 생성을 축하합니다.
+# 🌿죽지마 초록아🌿 - 완전관리형 식물케어 서비스
 
-## 팀소개 및 페이지를 꾸며주세요.
-
-- 프로젝트 소개
-  - 프로젝트 설치방법 및 데모, 사용방법, 프리뷰등을 readme.md에 작성.
-  - Api나 사용방법등 내용이 많을경우 wiki에 꾸미고 링크 추가.
-
-- 팀페이지 꾸미기
-  - 프로젝트 소개 및 팀원 소개
-  - index.md 예시보고 수정.
-
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
-  - Source를 marster branch
-  - Theme Chooser에서 태마선택
-  - 수정후 팀페이지 확인하여 점검.
-
-**팀페이지 주소** -> https://kookmin-sw.github.io/ '{{자신의 리파지토리 아이디}}'
-
-**예시)** 2023년 0조  https://kookmin-sw.github.io/capstone-2023-00/
+# 프로젝트 소개
+  
+  #### 최근 식물을 활용한 인테리어에 대한 관심이 커지면서 너도나도 식물을 집에 들이고 있다. </br>
+  #### 하지만 호기롭게 집에 들인 식물들은 생각보다 섬세한 관리를 요하고, 초보 집사들은 실수를 저지르기 쉽다. </br>
+  #### 또한 배테랑 집사들도 여행 혹은 잦은 출장으로 집을 비워야 할 때에 혼자 남겨질 식물때문에 걱정이 크다. </br>
+  #### 이러한 문제를 해결하기 위해 부재 시에도 식물의 특성에 맞는 적정 성장 환경을 유지하고, 실시간으로 식물 상태를 확인 할 수 있는 서비스를 만들었다. 
 
 
-## 내용에 아래와 같은 내용들을 추가하세요.
-
-### 1. 프로잭트 소개
-
-프로젝트
-
-### 2. 소개 영상
-
-프로젝트 소개하는 영상을 추가하세요
-
-### 3. 팀 소개
-
-팀을 소개하세요.
-
-팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
-
-### 4. 사용법
-
-소스코드제출시 설치법이나 사용법을 작성하세요.
-
-### 5. 기타
-
-추가적인 내용은 자유롭게 작성하세요.
+# (부스 그림)🌳
 
 
-## Markdown을 사용하여 내용꾸미기
+# 주요 기능
 
-Markdown은 작문을 스타일링하기위한 가볍고 사용하기 쉬운 구문입니다. 여기에는 다음을위한 규칙이 포함됩니다.
+  - **식물 종 판별** : 부스에 식물을 넣으면 어떤 식물인지 판별하고, 그에 맞는 환경을 준비합니다.
+  </br>
+  
+  - **적정 환경 유지** : 관리중인 식물의 특성에 알맞은 온도, 습도, 일조량을 유지합니다.
+  </br>
+  
+  - **실시간 모니터링** : 실시간으로 관리중인 부스 내부의 환경을 확인합니다.
+  </br>
+  
+  - **이상탐지 알림** : 식물에 눈에띄는 변화를 감지, 사용자에게 알려줍니다.
+  </br>
+  
+  - **식물 성장 일지** : 식물의 성장과정을 확인하고, 매일매일 일지를 작성할 수 있습니다. 
 
-```markdown
-Syntax highlighted code block
+# 팀원 소개
+  
+  👩‍✈️문선진(captain) : Fe
+  
+  🧟문소윤 : Be, embedded
+    </br>
 
-# Header 1
-## Header 2
-### Header 3
+  🧚‍♀️이정현 : Be
+    </br>
 
-- Bulleted
-- List
+  👼박성준 : Fe
+    </br>
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-자세한 내용은 [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Support or Contact
-
-readme 파일 생성에 추가적인 도움이 필요하면 [도움말](https://help.github.com/articles/about-readmes/) 이나 [contact support](https://github.com/contact) 을 이용하세요.
+  🤖노지민 : AI
+  
