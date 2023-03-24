@@ -1,6 +1,7 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10029769&assignment_repo_type=AssignmentRepo)
 
 # 🌿죽지마 초록아🌿 - 완전관리형 식물케어 서비스
+---
 
 # 프로젝트 소개
   
@@ -9,10 +10,10 @@
   #### 또한 배테랑 집사들도 여행 혹은 잦은 출장으로 집을 비워야 할 때에 혼자 남겨질 식물때문에 걱정이 크다. </br>
   #### 이러한 문제를 해결하기 위해 부재 시에도 식물의 특성에 맞는 적정 성장 환경을 유지하고, 실시간으로 식물 상태를 확인 할 수 있는 서비스를 만들었다. 
 
-
+---
 # (부스 그림)🌳
 
-
+---
 # 주요 기능
 
   - **식물 종 판별** 
@@ -44,9 +45,12 @@
 
     - 매일매일 식물의 성장과정을 확인하고, 일지를 작성할 수 있어 식물의 성장 상태를 쉽게 파악할 수 있습니다.
     </br>
+---
 
-# 중간발표 영상
-
+# 소개 영상
+- 중간발표 영상 : xxxx
+- 
+---
 # 팀원 소개
   
   👩‍✈️문선진(captain) : Fe
