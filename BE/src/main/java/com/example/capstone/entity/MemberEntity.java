@@ -22,4 +22,5 @@ public class MemberEntity extends BaseTimeEntity{
     @Column
     private String pw;
 
+
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/login")
 public class LoginController {
     //두 가지 갈래로 뻗어나갈 것임.
@@ -26,6 +27,10 @@ public class LoginController {
         this.memberCheckService = mc;
     }
 
+    @GetMapping("/hello")
+    public String hello(){
+        return "Hello";
+    }
     @PostMapping("/general")
     public member Login(@RequestBody member u , HttpServletResponse response, HttpSession session) throws NoSuchAlgorithmException {
         String email = u.getEmail();
@@ -38,6 +43,7 @@ public class LoginController {
         //1.사용자 확인 (id , pw 확인)
         if(memberCheckService.CheckAuthentication(email,pw)){
             System.out.println("로그인 성공");
+
             // 쿠키(세션)생성 로직 들어가야함.
             Cookie cookie = new Cookie("memberId",email);
             // 모든 경로에서 쿠키를 사용 할 수 있게 설정.

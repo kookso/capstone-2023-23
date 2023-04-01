@@ -14,7 +14,6 @@ public interface LogRepository extends JpaRepository<LogEntity,Long> {
     @Override
     List<LogEntity> findAllById(Iterable<Long> longs);
 
-
     ArrayList<LogEntity> findAll();
 
     ArrayList<LogEntity> findAllById(int deviceid);
