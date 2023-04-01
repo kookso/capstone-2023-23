@@ -23,7 +23,12 @@ public class ImageInService {
     public String ImageSave(MultipartFile file, int deviceID){
         LocalDateTime dataTime = LocalDateTime.now();
         int device_ID = deviceID;
-        String path = "/Users/junghyun/Desktop/CapstoneProject/Capstone/src/main/resources/Image/"+ dataTime + "ID?" + device_ID;
+        String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+        System.out.println(extension);
+
+        String path = "/Users/junghyun/Desktop/CapstoneProject/Capstone/src/main/resources/Image/"+ dataTime + "ID?" + device_ID + "." +extension;
 
         try {
             File dest = new File(path);
