@@ -40,7 +40,5 @@ public class ImageInService {
             e.printStackTrace();
             return "Fail";
         }
-
     }
-
 }

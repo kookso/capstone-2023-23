@@ -14,34 +14,35 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 public class LogEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "device_id")
+    @Column
+    private int log_id;
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "device_id")
     private int deviceId;
 
     @Column(nullable = false)
-    private int humidity;
+    private double humidity;
 
     @Column(nullable = false)
-    private int temperature;
+    private double temperature;
 
     @Column(nullable = false)
-    private int sunlight;
+    private double sunlight;
 
     @Column(nullable = false)
     private LocalDateTime logTime;
+    @Column
+    private int id;
 
-    // 생성자, getter, setter, toString 등 생략
 
-    public LogEntity(int deviceId, int humidity, int temperature, int sunlight) {
+    public LogEntity(int deviceId, int humidity, int temperature, int sunlight,int log_id) {
         this.deviceId = deviceId;
         this.humidity = humidity;
         this.temperature = temperature;
         this.sunlight = sunlight;
+        this.log_id = log_id;
     }
 
     public LogEntity() {

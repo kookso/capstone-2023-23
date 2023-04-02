@@ -5,6 +5,7 @@ import com.example.capstone.service.LogService;
 import com.example.capstone.service.dataout.HumidityLogService;
 import com.example.capstone.service.dataout.SunLogService;
 import com.example.capstone.service.dataout.TemperatureLogService;
+import lombok.Getter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/dataout")
+@Getter
 public class DataOutController {
     private final HumidityLogService humidityLogService;
     private final TemperatureLogService temperatureLogService;
@@ -25,20 +27,20 @@ public class DataOutController {
         this.sunLogService = sunLogService;
     }
     @GetMapping("/humidity")
-    public ArrayList<LogEntity> getHumidity(@RequestParam int deviceId){
-        ArrayList<LogEntity> data = humidityLogService.LogEntityToRealTimeData(deviceId);
+    public ArrayList<DataItem> getHumidity(@RequestParam int deviceId){
+        ArrayList<DataItem> data = humidityLogService.LogEntityToRealTimeData(deviceId);
         return data;
     }
 
     @GetMapping("/temperature")
-    public ArrayList<LogEntity> getTemperature(@RequestParam int deviceId){
-        ArrayList<LogEntity> data = temperatureLogService.ans(deviceId);
+    public ArrayList<DataItem> getTemperature(@RequestParam int deviceId){
+        ArrayList<DataItem> data = temperatureLogService.LogEntityToRealTimeData(deviceId);
         return data;
     }
 
     @GetMapping("/sun")
-    public ArrayList<LogEntity> getSun(@RequestParam int deviceId){
-        ArrayList<LogEntity> data = sunLogService.ans(deviceId);
+    public ArrayList<DataItem> getSun(@RequestParam int deviceId){
+        ArrayList<DataItem> data = sunLogService.LogEntityToRealTimeData(deviceId);
         return data;
     }
 }

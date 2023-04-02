@@ -1,5 +1,7 @@
 package com.example.capstone.service.dataout;
 
+import com.example.capstone.controller.DataItem;
+import com.example.capstone.controller.RealtimeData;
 import com.example.capstone.entity.LogEntity;
 import com.example.capstone.repository.LogRepository;
 import org.springframework.stereotype.Service;
@@ -10,11 +12,19 @@ import java.util.ArrayList;
 public class SunLogService {
     private final LogRepository logRepository;
     //LogDataOutService
-    SunLogService (LogRepository l){this.logRepository = l;}
+    public SunLogService (LogRepository l){this.logRepository = l;}
 
-    public ArrayList<LogEntity> ans(int deviceid){
+
+    public ArrayList<DataItem> LogEntityToRealTimeData(int deviceid){
         ArrayList<LogEntity> a = logRepository.findAllById(deviceid);
-        System.out.println(a.toString());
-        return a;
+        RealtimeData ans = new RealtimeData();
+
+
+        for(int i=0; i<a.size();i++){
+            LogEntity exist = a.get(i);
+            DataItem s = new DataItem(exist.getLogTime().getHour(),exist.getSunlight());
+            ans.AddData(s);
+        }
+        return ans.getData();
     }
 }
