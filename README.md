@@ -10,8 +10,7 @@
   #### 이러한 문제를 해결하기 위해 부재 시에도 식물의 특성에 맞는 적정 성장 환경을 유지하고, 실시간으로 식물 상태를 확인 할 수 있는 서비스를 만들었다. 
 
 
-<img src="https://user-images.githubusercontent.com/55117014/230551845-a418dfec-4543-4aab-bea0-7b2e83ce0323.png" >🌳
-
+<img src="https://i.ibb.co/ryvPQqs/embedded-image.png" alt="embedded-image" >🌳
 
 # 주요 기능
 
