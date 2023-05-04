@@ -1,10 +1,10 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
-import axios from "axios";
-import DataChart from "./DataChart";
-import DataBox from "./DataBox";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import axios from 'axios';
+import DataChart from './DataChart';
+import DataBox from './DataBox';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 export default function DataList() {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ export default function DataList() {
     <div className="DataList">
       <button onClick={() => navigate(`/`)}>Home 가기</button>
       <DataChart />
-      <DataBox />
     </div>
   );
   // const navigate = useNavigate();
