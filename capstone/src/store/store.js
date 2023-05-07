@@ -1,10 +1,10 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 //1. soilMoisture
 //usetState()의 역할, {name:'state이름',initialState:'state값'} 하면 state 하나 생성
 let soilMoisture = createSlice({
-  name: 'soilMoisture',
-  initialState: '',
+  name: "soilMoisture",
+  initialState: "",
 
   //state 수정해주는 함수(액션 생성자 함수)를 아래 적기
   reducers: {
@@ -16,8 +16,8 @@ let soilMoisture = createSlice({
 
 //2. Temperature
 let temp = createSlice({
-  name: 'temp',
-  initialState: '',
+  name: "temp",
+  initialState: "",
   reducers: {
     updateTemp(state, action) {
       return action.payload;
@@ -27,10 +27,21 @@ let temp = createSlice({
 
 //3. Temperature
 let humidity = createSlice({
-  name: 'humidity',
-  initialState: '',
+  name: "humidity",
+  initialState: "",
   reducers: {
     updateHumidity(state, action) {
+      return action.payload;
+    },
+  },
+});
+
+//4. User Info
+let user = createSlice({
+  name: "user",
+  initialState: [],
+  reducers: {
+    updateUser(state, action) {
       return action.payload;
     },
   },
@@ -42,9 +53,11 @@ export default configureStore({
     soilMoisture: soilMoisture.reducer,
     temp: temp.reducer,
     humidity: humidity.reducer,
+    user: user.reducer,
   },
 });
 
 export const { updateSoil } = soilMoisture.actions;
 export const { updateTemp } = temp.actions;
 export const { updateHumidity } = humidity.actions;
+export const { updateUser } = user.actions;

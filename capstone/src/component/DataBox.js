@@ -1,21 +1,23 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+// maincontent의 dataBox
 
-import { Box, Typography, Button, Grid } from '@material-ui/core';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+
+import { Box, Typography, Button, Grid } from "@material-ui/core";
 
 //axios
-import axios from 'axios';
+import axios from "axios";
 
 //redux
-import { useSelector, useDispatch } from 'react-redux';
-import { updateHumidity, updateSoil, updateTemp } from '../store/store';
+import { useSelector, useDispatch } from "react-redux";
+import { updateHumidity, updateSoil, updateTemp } from "../store/store";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: 'center',
+  textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
@@ -29,7 +31,7 @@ export default function DataBox() {
   //dispatch가 실행 때마다 data 업데이트 해서 보여주는 코드
   //useEffect의 의존성 배열(두번째 매개변수)에 dispatch
   React.useEffect(() => {
-    axios.get('http://localhost:3001/dummy').then((result) => {
+    axios.get("http://localhost:3001/dummy").then((result) => {
       //일단 0시의 temp와 humidity
       let moistValue = result.data[1].data[0].y;
       let tempValue = result.data[0].data[0].y;
@@ -56,7 +58,7 @@ export default function DataBox() {
               m: 5,
               width: 300,
               height: 180,
-              border: '2px solid #E1E2E3 ',
+              border: "2px solid #E1E2E3 ",
             }}
           >
             <h1>Humidity</h1>
@@ -71,7 +73,7 @@ export default function DataBox() {
               m: 5,
               width: 300,
               height: 180,
-              border: '2px solid #E1E2E3 ',
+              border: "2px solid #E1E2E3 ",
             }}
           >
             <h1>Temperature</h1>
@@ -87,7 +89,7 @@ export default function DataBox() {
               m: 5,
               width: 300,
               height: 180,
-              border: '2px solid #E1E2E3 ',
+              border: "2px solid #E1E2E3 ",
             }}
           >
             <h1>Soil-Moisture</h1>
@@ -102,7 +104,7 @@ export default function DataBox() {
               m: 5,
               width: 300,
               height: 180,
-              border: '2px solid #E1E2E3 ',
+              border: "2px solid #E1E2E3 ",
             }}
           >
             <h1>Amount of sunshine</h1>

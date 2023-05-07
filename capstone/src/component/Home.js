@@ -256,7 +256,7 @@ export default function Home() {
           <CustomBtn onClick={scrollToTop}>Start</CustomBtn>
         </Foot>
       </InfoLayout>
-      {/* <Btn onClick={() => navigate(`/datalist`)}>DataList</Btn> */}
+      <Btn onClick={() => navigate(`/datalist`)}>DataList</Btn>
     </div>
   );
 }

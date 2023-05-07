@@ -1,21 +1,17 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DataChart from '../component/DataChart';
-import DataList from '../component/DataList';
-import EmptyPage from '../component/EmptyPage';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DataChart from "../component/DataChart";
+import DataList from "../component/DataList";
+import EmptyPage from "../component/EmptyPage";
 
-import DataBox from '../component/DataBox';
-
+import DataBox from "../component/DataBox";
+// //Farm/booth/plant1
 //axios
-import axios from 'axios';
+import axios from "axios";
 
 function MainContent() {
   return (
     <>
-      <Routes>
-        <Route exact path="/" element={<DataList />} />
-        <Route path="/DataChart/:id" element={<DataChart />} />
-        <Route path="*" element={<EmptyPage />} />
-      </Routes>
+      <DataList></DataList>
       <DataBox></DataBox>
     </>
   );

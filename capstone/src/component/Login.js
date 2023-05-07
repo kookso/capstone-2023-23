@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../store/store";
 
 const BasicLayout = styled.div`
   height: 85vh;
@@ -127,6 +129,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  let user = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -135,11 +139,18 @@ export default function Login() {
         `http://localhost:3001/user?email=${email}&password=${password}`
       );
       if (data.length === 0) {
+        // 로그인 실패
         setError("Invalid email or password");
       } else {
-        localStorage.setItem("user", JSON.stringify(data[0]));
+        // 로그인 성공시
+        // console.log("ssss" + JSON.stringify(data[0]));
+        // console.log(data[0].email);
+        let userValue = [data[0].email, data[0].firstName, data[0].lastName];
+        // localStorage.setItem("user", JSON.stringify(data[0]));
+        // console.log("user: " + userValue);
+        dispatch(updateUser(userValue));
         console.log("Success");
-        navigate("/");
+        navigate("/Farm");
       }
     } catch (error) {
       console.error(error);
@@ -148,7 +159,6 @@ export default function Login() {
   };
 
   return (
-    // <>
     <BasicLayout>
       <ContainerBox>
         <InnerBox>
@@ -186,30 +196,6 @@ export default function Login() {
         </InnerBox>
       </ContainerBox>
     </BasicLayout>
-    // {/* <h2>Login</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <input
-    //       type="email"
-    //       id="id"
-    //       value={email}
-    //       onChange={(e) => {
-    //         setEmail(e.target.value);
-    //       }}
-    //     ></input>
-    //     <input
-    //       type="password"
-    //       value={password}
-    //       onChange={(e) => {
-    //         setPassword(e.target.value);
-    //       }}
-    //     ></input>
-    //     <Button type="submit" variant="contained" color="success">
-    //       Login
-    //     </Button>
-    //     {error && <div>{error}</div>}
-    //   </form>
-    // <button onClick={() => navigate(`/`)}>Home 가기</button> */}
-    // {/* </> */}
   );
 }
 

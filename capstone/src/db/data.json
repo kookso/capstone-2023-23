@@ -75,6 +75,30 @@
       "firstName": "park",
       "lastName": "sung",
       "id": "rwYDO8e"
+    },
+    {
+      "email": "asdf@asdf.com",
+      "password": "asdf",
+      "firstName": "asdf",
+      "lastName": "asdf",
+      "id": "5Er9Ek4"
+    }
+  ],
+  "booth": [
+    {
+      "email": "park@naver.com",
+      "boothName": "booth1",
+      "boothSerialNumber": "asd100"
+    },
+    {
+      "email": "park@naver.com",
+      "boothName": "booth2",
+      "boothSerialNumber": "asd101"
+    },
+    {
+      "email": "psj@psj.com",
+      "boothName": "booth1",
+      "boothSerialNumber": "asd201"
     }
   ]
 }
