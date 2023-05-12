@@ -99,6 +99,22 @@
       "email": "psj@psj.com",
       "boothName": "booth1",
       "boothSerialNumber": "asd201"
+    },
+    {
+      "id": "kej8ryr4f",
+      "boothName": "booth3",
+      "boothSerialNumber": "3",
+      "email": "park@naver.com"
+    },
+    {
+      "id": "stxwe9s5r",
+      "boothName": "first",
+      "boothSerialNumber": "1"
+    },
+    {
+      "id": "8audkq2zt",
+      "boothName": "first",
+      "boothSerialNumber": "0"
     }
   ]
 }
