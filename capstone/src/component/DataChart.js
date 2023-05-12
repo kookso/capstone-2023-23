@@ -2,6 +2,34 @@ import React, { useState, useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
+
+const BtnContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 13%;
+`;
+const Btn = styled.button`
+  block-size: fit-content;
+  text-align: center;
+  font-size: 1.2rem;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  margin-left: 8px;
+  border: 0px solid #48742c;
+  background: white;
+  color: #48742c;
+  font-weight: 700;
+  &:hover {
+    background: #48742c;
+    color: white;
+    transition: 0.5s;
+  }
+  &:focus {
+    background: #48742c;
+    color: white;
+  }
+`;
 
 const Chart = () => {
   const type = useParams();
@@ -9,46 +37,76 @@ const Chart = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [chartData, setChartData] = useState([]);
+  const [yScale, setYScale] = useState({ min: "auto", max: "auto" });
 
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get("http://localhost:3001/dummy");
       setData(response.data);
+      setChartData(response.data);
+      console.log(response.data);
     }
     fetchData();
+    console.log(data);
   }, []);
 
-  const handleFilter = (e) => {
-    let dataType = e;
-    let filterData;
-    filterData = data.filter((id) => id.id === dataType);
-    console.log(filterData);
-    setChartData(filterData);
+  const getMinMax = (id) => {
+    switch (id) {
+      case "temp":
+        return { min: 10, max: 40 };
+      case "humidity":
+        return { min: 10, max: 80 };
+      case "all":
+        return { min: "auto", max: "auto" };
+      default:
+        return { min: "auto", max: "auto" };
+    }
+  };
+
+  const handleFilter = (id) => {
+    if (id === "all") {
+      setChartData(data);
+      setYScale(getMinMax(id));
+    } else {
+      const filterData = data.filter((item) => item.id === id);
+      setChartData(filterData);
+      setYScale(getMinMax(id));
+    }
   };
   // const chartData = data.filter((id) => id.id === dataType);
   return (
-    <div style={{ width: "auto", height: "400px", margin: "0 auto" }}>
-      {data.map((item) => (
-        <button
-          variant="contained"
-          color="success"
-          key={item.id}
-          // onClick={() => navigate(`/datachart/${item.id}`)}
-          onClick={() => handleFilter(item.id)}
-        >
-          {item.id}
-        </button>
-      ))}
+    <div
+      style={{
+        width: "100%",
+        height: "450px",
+        margin: "0 auto",
+      }}
+    >
+      {/* // onClick={() => navigate(`/datachart/${item.id}`)} */}
+      <BtnContainer>
+        {data.map((item) => (
+          <Btn key={item.id} onClick={() => handleFilter(item.id)}>
+            {item.id}
+          </Btn>
+        ))}
+        <Btn onClick={() => handleFilter("all")}>total</Btn>
+      </BtnContainer>
       <ResponsiveLine
         data={chartData}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: "point" }}
+        curve="monotoneX"
+        xScale={{
+          type: "linear",
+          min: 0,
+          max: 24,
+          stacked: false,
+          reverse: false,
+        }}
         yScale={{
           type: "linear",
-          min: "auto",
-          max: "auto",
-          stacked: true,
+          stacked: false,
           reverse: false,
+          ...yScale,
         }}
         yFormat=" >-.2f"
         axisTop={null}
@@ -58,7 +116,7 @@ const Chart = () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "transportation",
+          legend: "time",
           legendOffset: 36,
           legendPosition: "middle",
         }}
