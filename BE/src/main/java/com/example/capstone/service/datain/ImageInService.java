@@ -1,12 +1,13 @@
 package com.example.capstone.service.datain;
 
-
 import com.example.capstone.entity.ImageStorageEntity;
 import com.example.capstone.repository.ImageRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,19 +27,19 @@ public class ImageInService {
         String fileName = file.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-        System.out.println(extension);
-
-        String path = "/Users/junghyun/Desktop/CapstoneProject/Capstone/src/main/resources/Image/"+ dataTime + "ID?" + device_ID + "." +extension;
-
+        String path = "/home/ubuntu/Image/"+ dataTime + "ID?" + device_ID + "." +extension;
+///home/ubuntu/Image/
+//        /Users/junghyun/Desktop/CapstoneProject/Capstone/src/main/resources/Image/
         try {
             File dest = new File(path);
             file.transferTo(dest);
             imageRepository.save(new ImageStorageEntity(path , device_ID));
-            return "Success";
+            return "Image save Success";
 
         } catch (IOException e) {
             e.printStackTrace();
-            return "Fail";
+            return "Image save Fail";
         }
     }
 }
+

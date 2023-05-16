@@ -15,10 +15,8 @@ public class HumidityLogService {
     private final LogRepository logRepository;
     //LogDataOutService
     public HumidityLogService (LogRepository l){this.logRepository = l;}
-
-
     public ArrayList<DataItem> LogEntityToRealTimeData(int deviceid){
-        ArrayList<LogEntity> a = logRepository.findAllById(deviceid);
+        ArrayList<LogEntity> a = logRepository.findAllByDeviceId(deviceid);
         RealtimeData ans = new RealtimeData();
 
 

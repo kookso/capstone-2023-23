@@ -27,12 +27,12 @@ class LogServiceTest {
     @Test
     void shouldReturnLogsForDevice() {
         int deviceId = 123;
-        LogEntity log1 = new LogEntity(123,32,16,700,10);
-        LogEntity log2 = new LogEntity(123,22,16,750,2);
+        LogEntity log1 = new LogEntity(123,32,16,700,null);
+        LogEntity log2 = new LogEntity(123,22,16,750,null);
         ArrayList<LogEntity> expectedLogs = new ArrayList<>();
         expectedLogs.add(log1);
         expectedLogs.add(log2);
-        when(logRepositoryMock.findAllById(123)).thenReturn(expectedLogs);
+        when(logRepositoryMock.findAllByDeviceId(123)).thenReturn(expectedLogs);
 
         ArrayList<LogEntity> actualLogs = logService.ans(deviceId);
 

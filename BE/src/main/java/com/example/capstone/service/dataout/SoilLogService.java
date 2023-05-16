@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class SunLogService {
+public class SoilLogService {
     private final LogRepository logRepository;
     //LogDataOutService
-    public SunLogService (LogRepository l){this.logRepository = l;}
+    public SoilLogService(LogRepository l){this.logRepository = l;}
 
 
     public ArrayList<DataItem> LogEntityToRealTimeData(int deviceid){
-        ArrayList<LogEntity> a = logRepository.findAllById(deviceid);
+        ArrayList<LogEntity> a = logRepository.findAllByDeviceId(deviceid);
         RealtimeData ans = new RealtimeData();
 
 
         for(int i=0; i<a.size();i++){
             LogEntity exist = a.get(i);
-            DataItem s = new DataItem(exist.getLogTime().getHour(),exist.getSunlight());
+            DataItem s = new DataItem(exist.getLogTime().getHour(),exist.getSoilMoisture());
             ans.AddData(s);
         }
         return ans.getData();

@@ -1,15 +1,14 @@
 package com.example.capstone.controller;
 
-import com.example.capstone.entity.LogEntity;
-import com.example.capstone.service.LogService;
-import com.example.capstone.service.dataout.HumidityLogService;
-import com.example.capstone.service.dataout.SunLogService;
+
+import com.example.capstone.service.dataout.SoilLogService;
 import com.example.capstone.service.dataout.TemperatureLogService;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.capstone.service.dataout.HumidityLogService;
 
 import java.util.ArrayList;
 
@@ -19,12 +18,12 @@ import java.util.ArrayList;
 public class DataOutController {
     private final HumidityLogService humidityLogService;
     private final TemperatureLogService temperatureLogService;
-    private final  SunLogService sunLogService;
+    private final SoilLogService soilLogService;
 
-    public DataOutController(HumidityLogService humidityLogService, TemperatureLogService temperatureLogService, SunLogService sunLogService) {
+    public DataOutController(HumidityLogService humidityLogService, TemperatureLogService temperatureLogService, SoilLogService soilLogService) {
         this.humidityLogService = humidityLogService;
         this.temperatureLogService = temperatureLogService;
-        this.sunLogService = sunLogService;
+        this.soilLogService = soilLogService;
     }
     @GetMapping("/humidity")
     public ArrayList<DataItem> getHumidity(@RequestParam int deviceId){
@@ -38,9 +37,9 @@ public class DataOutController {
         return data;
     }
 
-    @GetMapping("/sun")
+    @GetMapping("/soil")
     public ArrayList<DataItem> getSun(@RequestParam int deviceId){
-        ArrayList<DataItem> data = sunLogService.LogEntityToRealTimeData(deviceId);
+        ArrayList<DataItem> data = soilLogService.LogEntityToRealTimeData(deviceId);
         return data;
     }
 }

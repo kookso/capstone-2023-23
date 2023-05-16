@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+
 @Service
 @Setter
 public class LogService {
@@ -17,7 +18,7 @@ public class LogService {
 
     //device id로 필요한 로그를 전부 불러옴.
     public ArrayList<LogEntity> ans(int deviceid){
-        ArrayList<LogEntity> a = logRepository.findAllById(deviceid);
+        ArrayList<LogEntity> a = logRepository.findAllByDeviceId(deviceid);
         System.out.println(a.toString());
         return a;
     }

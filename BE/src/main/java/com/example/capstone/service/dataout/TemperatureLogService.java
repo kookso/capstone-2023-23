@@ -17,7 +17,7 @@ public class TemperatureLogService {
 
 
     public ArrayList<DataItem> LogEntityToRealTimeData(int deviceid){
-        ArrayList<LogEntity> a = logRepository.findAllById(deviceid);
+        ArrayList<LogEntity> a = logRepository.findAllByDeviceId(deviceid);
         RealtimeData ans = new RealtimeData();
 
 

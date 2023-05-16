@@ -1,25 +1,22 @@
 package com.example.capstone.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "log")
 @Getter
 @ToString
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LogEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int log_id;
-    //    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "device_id")
+
+    @Column(nullable = false)
     private int deviceId;
 
     @Column(nullable = false)
@@ -29,23 +26,11 @@ public class LogEntity {
     private double temperature;
 
     @Column(nullable = false)
-    private double sunlight;
+    private double SoilMoisture;
 
+    @Id
     @Column(nullable = false)
+    @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime logTime;
-    @Column
-    private int id;
-
-
-    public LogEntity(int deviceId, int humidity, int temperature, int sunlight,int log_id) {
-        this.deviceId = deviceId;
-        this.humidity = humidity;
-        this.temperature = temperature;
-        this.sunlight = sunlight;
-        this.log_id = log_id;
-    }
-
-    public LogEntity() {
-
-    }
 }

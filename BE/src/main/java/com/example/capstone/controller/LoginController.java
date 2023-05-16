@@ -1,9 +1,6 @@
 package com.example.capstone.controller;
 
 import com.example.capstone.service.MemberAuthenticationCheckService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -27,23 +24,21 @@ public class LoginController {
         this.memberCheckService = mc;
     }
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello";
-    }
     @PostMapping("/general")
-    public member Login(@RequestBody member u , HttpServletResponse response, HttpSession session) throws NoSuchAlgorithmException {
-        String email = u.getEmail();
-        String pw = u.getPW();
+    public Member Login(@RequestBody Member u , HttpServletResponse response, HttpSession session) throws NoSuchAlgorithmException {
 
-        System.out.println("Email : " + email);
-        System.out.println("PW : " + pw);
-//        System.out.println("memberId : " + memberId)
+        String email = u.getEmail();
+        String pw = u.getPw();
 
         //1.사용자 확인 (id , pw 확인)
-        if(memberCheckService.CheckAuthentication(email,pw)){
+        if(memberCheckService.CheckAuthentication(u.getEmail(),u.getPw()) != 0){
+            System.out.println("Email : " + u.getEmail());
+            System.out.println("PW : " + u.getPw());
+            System.out.println("name : " +  u.getFirstname() + u.getLastname());
             System.out.println("로그인 성공");
 
+
+            u.setId(memberCheckService.CheckAuthentication(email,pw));
             // 쿠키(세션)생성 로직 들어가야함.
             Cookie cookie = new Cookie("memberId",email);
             // 모든 경로에서 쿠키를 사용 할 수 있게 설정.
@@ -53,22 +48,14 @@ public class LoginController {
             cookie.setMaxAge(60 * 60);
             // response 메세지에 쿠키 추가.
             response.addCookie(cookie);
+
         }
         else{
             System.out.println("로그인 실패");
         }
         //3. 세션 등록
         session.setAttribute(email,email);
-        return u;
+        return memberCheckService.loadMember(email,pw);
     }
 }
 
-@Setter
-@Getter
-@AllArgsConstructor
-class member {
-
-    private String Email;
-    private String PW;
-
-}

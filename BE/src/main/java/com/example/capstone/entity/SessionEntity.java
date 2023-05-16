@@ -1,5 +1,7 @@
 package com.example.capstone.entity;
 
+import com.example.capstone.entity.BaseTimeEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
