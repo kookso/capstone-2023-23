@@ -1,16 +1,16 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import styled from "styled-components";
-import backgroundImg from "../img/hero_background.jpg";
-import plantBackgroungImg from "../img/plant_background3.jpg";
-import plantImg from "../img/watering-plants (1).png";
-import alertImg from "../img/notification.png";
-import infoBackgroundImg from "../img/Info_background.jpg";
-import plantPot from "../img/plant-pot.png";
-import planting from "../img/planting.png";
-import user from "../img/registered.png";
-import arrow from "../img/down-arrow.png";
-import graph from "../img/monitor.png";
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import styled from 'styled-components';
+import backgroundImg from '../img/hero_background.jpg';
+import plantBackgroungImg from '../img/plant_background3.jpg';
+import plantImg from '../img/watering-plants (1).png';
+import alertImg from '../img/notification.png';
+import infoBackgroundImg from '../img/Info_background.jpg';
+import plantPot from '../img/plant-pot.png';
+import planting from '../img/planting.png';
+import user from '../img/registered.png';
+import arrow from '../img/down-arrow.png';
+import graph from '../img/monitor.png';
 
 const BasicLayout = styled.div`
   height: 85vh;
@@ -58,7 +58,7 @@ const ValueDiv = styled.div`
 `;
 const ValueImg = styled.img.attrs(({ src }) => ({
   src: src,
-  alt: "Article Cover",
+  alt: 'Article Cover',
 }))`
   width: 4rem;
   margin: 0 auto;
@@ -134,7 +134,7 @@ const Title = styled.h2`
   font-weight: 700;
 `;
 const SubTitle = styled.h4`
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   font-size: 18px;
   line-height: 1.6;
@@ -153,7 +153,7 @@ const PlainText = styled.p`
   font-weight: 400;
 `;
 const SmallText = styled.p`
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-weight: 300;
   font-size: 20px;
   line-height: 1.334;
@@ -185,7 +185,7 @@ const BtnGroup = styled.div`
 function scrollToTop() {
   window.scrollTo({
     top: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 }
 export default function Home() {
@@ -197,7 +197,7 @@ export default function Home() {
     <div>
       <HeroLayout>
         <Box>
-          <Title>죽지마 초록아</Title>
+          <Title>Don't starve Chorok!</Title>
           <Underline></Underline>
           <PlainText>Full Time Managed Plant Care Service</PlainText>
           <BtnGroup>

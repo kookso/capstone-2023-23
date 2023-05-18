@@ -46,7 +46,7 @@ let user = createSlice({
     },
   },
 });
-//5. Booth info
+//5. Booth info  (addModal하면 생기는?)
 let boothSlice = createSlice({
   name: 'booth',
   initialState: {
@@ -63,24 +63,28 @@ let boothSlice = createSlice({
   },
 });
 
-//6. Booth Delete Event
+//6. Booth Delete Event (checkBox, deleteBooth)
 let checkedBooth = createSlice({
   name: 'checked',
   initialState: {
-    checkedBooths: [],
+    checkedBooths: '',
   },
   //checkedBooths는 현재 배열이므로 아래 reducer함수로 상태 관리
   //아래 코드 setCheckedBooths 액션은 checkedBooths 배열에 특정 id를 추가하거나 삭제
   reducers: {
     setCheckedBooths: (state, action) => {
+      state.checkedBooths = action.payload;
       const checkedId = action.payload;
 
       if (state.checkedBooths.includes(checkedId)) {
-        state.checkedBooths = state.checkedBooths.filter(
-          (id) => id !== checkedId
-        );
+        state.checkedBooths = state.checkedBooths
+          .split(',')
+          .filter((id) => id !== checkedId)
+          .join(',');
       } else {
-        state.checkedBooths.push(checkedId);
+        state.checkedBooths = state.checkedBooths
+          ? state.checkedBooths + ',' + checkedId
+          : checkedId;
       }
     },
   },
@@ -92,8 +96,95 @@ let deleteBooth = createSlice({
     deleteList: [],
   },
   reducers: {
+    //삭제된 부스의 id를 배열에 넣음
     deleteBoothReducer: (state, action) => {
       state.deleteList.push(action.payload);
+    },
+  },
+});
+
+//7. plant info, event
+
+//Booth2.js에 cardContent를 클릭할 시 해당 부스 정보 저장하는
+let boothCookie = createSlice({
+  name: 'boothCookie',
+  initialState: {
+    boothCookieName: '',
+    boothCookieSerialNumber: '',
+  },
+  reducers: {
+    setBoothCookieName: (state, action) => {
+      state.boothCookieName = action.payload;
+    },
+    setBoothCookieSerialNumber: (state, action) => {
+      state.boothCookieSerialNumber = action.payload;
+    },
+  },
+});
+
+let plantSlice = createSlice({
+  name: 'plant',
+  initialState: {
+    plantName: '',
+    plantSpecies: '',
+    plantSerialNumber: '',
+    firstHumidity: '',
+    firstSoilMoisture: '',
+    firstTemperature: '',
+  },
+  reducers: {
+    setPlantName: (state, action) => {
+      state.plantName = action.payload;
+    },
+    setPlantSerialNumber: (state, action) => {
+      state.plantSerialNumber = action.payload;
+    },
+    setPlantSpecies: (state, action) => {
+      state.plantSpecies = action.payload;
+    },
+    setFirstHumidity: (state, action) => {
+      state.firstHumidity = action.payload;
+    },
+    setFirstSoilMoisture: (state, action) => {
+      state.firstSoilMoisture = action.payload;
+    },
+    setFirstTemperature: (state, action) => {
+      state.firstTemperature = action.payload;
+    },
+  },
+});
+
+//plant delete event
+let deletePlant = createSlice({
+  name: 'deletePlant',
+  initialState: {
+    deletePlantList: [],
+  },
+  reducers: {
+    //삭제된 부스의 id를 배열에 넣음
+    deletePlantReducer: (state, action) => {
+      state.deletePlantList.push(action.payload);
+    },
+  },
+});
+let checkedPlant = createSlice({
+  name: 'checkedPlant',
+  initialState: {
+    checkedPlant: [],
+  },
+  //checkedBooths는 현재 배열이므로 아래 reducer함수로 상태 관리
+  //아래 코드 setCheckedBooths 액션은 checkedBooths 배열에 특정 id를 추가하거나 삭제
+  reducers: {
+    setCheckedPlant: (state, action) => {
+      const checkedId = action.payload;
+
+      if (state.checkedPlant.includes(checkedId)) {
+        state.checkedPlant = state.checkedPlant.filter(
+          (id) => id !== checkedId
+        );
+      } else {
+        state.checkedPlant.push(checkedId);
+      }
     },
   },
 });
@@ -106,8 +197,12 @@ export default configureStore({
     humidity: humidity.reducer,
     user: user.reducer,
     booth: boothSlice.reducer,
+    boothCookie: boothCookie.reducer,
+    plant: plantSlice.reducer,
     deleteBooth: deleteBooth.reducer,
     checkedBooth: checkedBooth.reducer,
+    checkedPlant: checkedPlant.reducer,
+    deletePlant: deletePlant.reducer,
   },
 });
 
@@ -116,5 +211,17 @@ export const { updateTemp } = temp.actions;
 export const { updateHumidity } = humidity.actions;
 export const { updateUser } = user.actions;
 export const { setBoothName, setBoothSerialNumber } = boothSlice.actions;
+export const { setBoothCookieName, setBoothCookieSerialNumber } =
+  boothCookie.actions;
+export const {
+  setPlantName,
+  setPlantSerialNumber,
+  setPlantSpecies,
+  setFirstHumidity,
+  setFirstSoilMoisture,
+  setFirstTemperature,
+} = plantSlice.actions;
 export const { deleteBoothReducer } = deleteBooth.actions;
+export const { deletePlantReducer } = deletePlant.actions;
 export const { setCheckedBooths } = checkedBooth.actions;
+export const { setCheckedPlant } = checkedPlant.actions;

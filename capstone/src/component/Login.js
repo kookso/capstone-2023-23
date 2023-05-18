@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../store/store";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../store/store';
 
 const BasicLayout = styled.div`
   height: 85vh;
@@ -68,7 +68,7 @@ const CustomInput = styled.input`
   }
 `;
 const SmallText = styled.p`
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -76,7 +76,7 @@ const SmallText = styled.p`
 `;
 const CustomLabel = styled.label`
   color: rgba(0, 0, 0, 0.6);
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   padding: 0;
@@ -126,35 +126,37 @@ const BtnGroup = styled.div`
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [id, setId] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   let user = useSelector((state) => state.user);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event, email, password) => {
+    event.preventDefault();
     try {
-      const { data } = await axios.get(
-        `http://localhost:3001/user?email=${email}&password=${password}`
+      const response = await axios.post(
+        'http://3.38.62.245:8080/login/general',
+        {
+          email: email,
+          pw: password,
+        }
       );
-      if (data.length === 0) {
-        // 로그인 실패
-        setError("Invalid email or password");
-      } else {
-        // 로그인 성공시
-        // console.log("ssss" + JSON.stringify(data[0]));
-        // console.log(data[0].email);
-        let userValue = [data[0].email, data[0].firstName, data[0].lastName];
-        // localStorage.setItem("user", JSON.stringify(data[0]));
-        // console.log("user: " + userValue);
-        dispatch(updateUser(userValue));
-        console.log("Success");
-        navigate("/Farm");
-      }
+      // console.log('login', response);
+      document.cookie = `token=${response.data.token}; path=/;`;
+      dispatch(
+        updateUser([
+          response.data.id,
+          response.data.email,
+          response.data.firstname,
+          response.data.lastname,
+        ])
+      );
+
+      navigate(`/Farm`);
     } catch (error) {
       console.error(error);
-      setError("Something went wrong. Please try again later.");
     }
   };
 
@@ -171,7 +173,7 @@ export default function Login() {
             <AText href="/signin">Sign Up here</AText>
           </SmallText>
 
-          <SignForm onSubmit={handleSubmit}>
+          <SignForm onSubmit={(event) => handleSubmit(event, email, password)}>
             <OtherDiv>
               <CustomLabel>Email＊</CustomLabel>
               <CustomInput

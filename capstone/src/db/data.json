@@ -101,12 +101,6 @@
       "boothSerialNumber": "asd201"
     },
     {
-      "id": "kej8ryr4f",
-      "boothName": "booth3",
-      "boothSerialNumber": "3",
-      "email": "park@naver.com"
-    },
-    {
       "id": "stxwe9s5r",
       "boothName": "first",
       "boothSerialNumber": "1"
@@ -117,10 +111,65 @@
       "boothSerialNumber": "0"
     },
     {
-      "id": "vpgd4serp",
-      "boothName": "booth4",
-      "boothSerialNumber": "4",
-      "email": "park@naver.com"
+      "id": "joycx0jxe",
+      "boothName": "booth1",
+      "boothSerialNumber": "1"
+    },
+    {
+      "id": "k42xcsch3",
+      "boothName": "booth2",
+      "boothSerialNumber": "2"
+    },
+    {
+      "id": "tgfboee1p",
+      "boothName": "booth3",
+      "boothSerialNumber": "3"
+    }
+  ],
+  "plant": [
+    {
+      "email": "park@naver.com",
+      "boothName": "booth1",
+      "plantName": "plant1"
+    },
+    {
+      "email": "park@naver.com",
+      "boothName": "booth2",
+      "plantName": "plant1"
+    },
+    {
+      "email": "park@naver.com",
+      "boothName": "booth1",
+      "plantName": "plant1"
+    },
+    {
+      "email": "psj@psj.com",
+      "boothName": "booth1",
+      "plantName": "plant1"
+    },
+    {
+      "id": "iimist4pb",
+      "plantName": "plant1",
+      "plantSerialNumber": "1"
+    },
+    {
+      "id": "db7odbw4j",
+      "plantName": "plant1",
+      "plantSerialNumber": "1"
+    },
+    {
+      "id": "zekduy1n6",
+      "plantName": "plant2",
+      "plantSerialNumber": "2",
+      "email": "park@naver.com",
+      "boothSerialNumber": "5"
+    },
+    {
+      "id": "gm39dfrfa",
+      "plantName": "plant1",
+      "plantSerialNumber": "1",
+      "email": "park@naver.com",
+      "boothSerialNumber": "asd100"
     }
   ]
 }

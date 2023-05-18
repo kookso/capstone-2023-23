@@ -16,10 +16,10 @@ import Box from '@mui/material/Box';
 //axios
 import axios from 'axios';
 
-import Booth2 from '../component/Booth2';
+import Booth2 from './Booth2';
 
-import AddModal from '../component/AddModal';
-import DeleteModal from '../component/DeleteModal';
+import AddModal from './AddModal';
+import DeleteModal from './DeleteModal';
 import boothBackground from '../img/booth_background.jpg';
 
 //redux
@@ -107,10 +107,6 @@ const HeadContainer = styled.div`
 `;
 
 function BoothSelection(props) {
-  const scrollbarHeight =
-    window.innerWidth - document.documentElement.clientWidth;
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [user, setUser] = useState([]);
@@ -119,41 +115,35 @@ function BoothSelection(props) {
   //추가 or 삭제된 부스 목록 관리
   const [boothList, setBoothList] = useState([]);
 
-  //삭제된 booth의 id를 배열에 넣은 것을 가져옴
-  const deletedBooth = useSelector((state) => state.deleteBooth.deleteList);
-
-  console.log('BoothSelection', deletedBooth);
-
   const addBooth = (booth) => {
     setBoothList([...boothList, booth]);
   };
-  ///
-  // const deleteBooth = (boothId) => {
-  //   setBoothList((prevBoothList) =>
-  //     prevBoothList.filter((booth) => !boothId.includes(booth.id))
-  //   );
-  // };
 
-  const userRedux = useSelector((state) => state.user);
-  console.log('userRedux : ' + userRedux);
+  //클릭시 클릭한 booth정보 담기(props에 담긴 booth 정보를 가져오기)
+  const boothCookie = useSelector(
+    (state) => state.boothCookie.boothSerialNumber
+  );
 
-  //userRedux이 dispatch로 인해 변할 때마다 실행
-  useEffect(() => {
-    setUser(userRedux);
-  }, [dispatch]);
+  //userId 가져오기
+  const userId = useSelector((state) => state.user[0]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(
-        // email이 같은 경우의 booth정보만 가져오도록
-        `http://localhost:3001/booth?email=${userRedux[0]}&all=true`
-      );
+      try {
+        //userId로 등록된 부스 불러오기
+        const url = `http://localhost:8080/device/load/all?userId=${userId}`;
+        const response = await axios.get(url);
 
-      setBoothList(response.data);
+        setBoothList(response.data);
+
+        // console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     fetchData();
-  }, [dispatch]);
+  }, [setBoothList]);
 
   return (
     <div>
@@ -164,19 +154,15 @@ function BoothSelection(props) {
         </HeadContainer>
         <BoothRoot>
           <BoothContainer>
-            {/* 부스이름으로 DB에서 저장된 부스 가져오기 */}
-            {booth.map((item) => (
-              <Booth2 key={item.boothName} boothInfo={item} />
-            ))}
             {/* AddModal 버튼에서 추가한 부스 가져와서 바로 보여주기 */}
             {boothList.map((item) => (
-              <Booth2 key={item.boothName} boothInfo={item} />
+              <Booth2 key={item.deviceId} boothInfo={item} />
             ))}
           </BoothContainer>
           <BtnContainer>
             {/* AddModal.js에 addBooth 함수 호출할 수 있도록  */}
             <AddModal addBooth={addBooth} />
-            <DeleteModal />
+            <DeleteModal boothList={boothList} setBoothList={setBoothList} />
           </BtnContainer>
         </BoothRoot>
       </BasicLayout>

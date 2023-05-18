@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 //redux
 import { deleteBoothReducer, setCheckedBooths } from '../store/store';
@@ -51,36 +52,37 @@ const style = {
 };
 
 export default function DeleteModal(props) {
+  const { boothList, setBoothList } = props;
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const dispatch = useDispatch();
 
-  const checkedBooths = useSelector(
-    (state) => state.checkedBooth.checkedBooths
+  const deviceId = useSelector(
+    (state) => state.boothCookie.boothCookieSerialNumber
   );
+
+  // const deviceId = useSelector((state) => state.checkedBooth.checkedBooths);
+  // console.log('delete', deviceId);
 
   //Delete 요청 함수
 
-  const deleteBooth = () => {
-    axios
-      .delete(`http://localhost:3001/booth/${checkedBooths.join('')}`)
-      .then((response) => {
-        console.log('success removing the booth ');
-        handleClose();
-        console.log('DeleteModals', checkedBooths);
-
-        dispatch(setCheckedBooths([]));
-
-        //delete한 booth2의 id 저장
-        dispatch(deleteBoothReducer(checkedBooths));
-      })
-
-      .catch((error) => {
-        console.error(error);
-        console.log(checkedBooths);
-      });
+  const deleteBooth = async () => {
+    try {
+      const url = `http://localhost:8080/device/remove?deviceId=${deviceId}`;
+      const response = await axios.get(url);
+      // console.log('delete', response);
+      handleClose();
+      // Delete booth from boothList
+      const updatedBoothList = boothList.filter(
+        (booth) => booth.deviceId !== deviceId
+      );
+      setBoothList(updatedBoothList);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,20 +1,12 @@
 // maincontent의 dataBox
-import * as React from "react";
+import * as React from 'react';
 //axios
-import axios from "axios";
+import axios from 'axios';
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
-import { updateHumidity, updateSoil, updateTemp } from "../store/store";
-import styled from "styled-components";
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: "center",
-//   color: theme.palette.text.secondary,
-// }));
+import { useSelector, useDispatch } from 'react-redux';
+import { updateHumidity, updateSoil, updateTemp } from '../store/store';
+import styled from 'styled-components';
 
 const BoxContainer = styled.div`
   display: flex;
@@ -50,15 +42,9 @@ const DataID = styled.h2`
   padding: 0.5rem;
   border-bottom: 4px solid #198754;
 `;
-// const Underline = styled.span`
-//   height: 4px;
-//   width: 55px;
-//   display: block;
-//   margin: 0 auto 0.5rem;
-//   background-color: #198754;
-// `;
+
 const SmallText = styled.p`
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5;
@@ -74,22 +60,42 @@ export default function DataBox() {
   let soilMoisture = useSelector((state) => state.soilMoisture);
   let temp = useSelector((state) => state.temp);
   let humidity = useSelector((state) => state.humidity);
+  const deviceId = useSelector(
+    (state) => state.boothCookie.boothCookieSerialNumber
+  );
 
   //dispatch가 실행 때마다 data 업데이트 해서 보여주는 코드
-  //useEffect의 의존성 배열(두번째 매개변수)에 dispatch
+  //오류 났었던 이유-server.js에 api 경로 설정 안해줘서
   React.useEffect(() => {
-    axios.get("http://localhost:3001/dummy").then((result) => {
-      //일단 0시의 temp와 humidity
-      let moistValue = result.data[1].data[0].y;
-      let tempValue = result.data[0].data[0].y;
-      let humidityValue = result.data[1].data[0].y;
+    if (deviceId) {
+      async function fetchData() {
+        try {
+          const url2 = `http://localhost:8080/dataout/total?deviceId=${deviceId}`;
+          const response2 = await axios.get(url2);
+          console.log(response2);
 
-      //Dispatch
-      dispatch(updateSoil(moistValue));
-      dispatch(updateTemp(tempValue));
-      dispatch(updateHumidity(humidityValue));
-    });
-  }, [dispatch]);
+          //가장 최신 값으로 update
+          const maxIndex = response2.data.length - 1;
+          const updateData = response2.data[maxIndex];
+
+          let moistValue = updateData.soilMoisture;
+          let tempValue = updateData.temperature;
+          let humidityValue = updateData.humidity;
+
+          //Dispatch
+          dispatch(updateSoil(moistValue));
+          dispatch(updateTemp(tempValue));
+          dispatch(updateHumidity(humidityValue));
+
+          console.log(response2);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      fetchData();
+    }
+  }, [deviceId]);
 
   return (
     <BoxContainer>
@@ -103,80 +109,12 @@ export default function DataBox() {
       </Box>
       <Box>
         <DataID>Soil-Moisture</DataID>
-        <SmallText>{temp}</SmallText>
+        <SmallText>{soilMoisture}</SmallText>
       </Box>
       <Box>
         <DataID>Else</DataID>
         <SmallText>else</SmallText>
       </Box>
     </BoxContainer>
-    // <Box sx={{ flexGrow: 1 }}>
-    //   <Grid
-    //     container
-    //     spacing={{ xs: 1, md: 3 }}
-    //     columns={{ xs: 1, sm: 4, md: 12 }}
-    //     justifyContent="center"
-    //   >
-    //     <Grid>
-    //       <Item
-    //         sx={{
-    //           m: 5,
-    //           width: 300,
-    //           height: 180,
-    //           border: "2px solid #E1E2E3 ",
-    //         }}
-    //       >
-    //         <h1>Humidity</h1>
-    //         <Typography variant="h5" component="div">
-    //           {humidity}
-    //         </Typography>
-    //       </Item>
-    //     </Grid>
-    //     <Grid>
-    //       <Item
-    //         sx={{
-    //           m: 5,
-    //           width: 300,
-    //           height: 180,
-    //           border: "2px solid #E1E2E3 ",
-    //         }}
-    //       >
-    //         <h1>Temperature</h1>
-    //         <Typography variant="h5" component="div">
-    //           {temp}
-    //         </Typography>
-    //       </Item>
-    //     </Grid>
-
-    //     <Grid>
-    //       <Item
-    //         sx={{
-    //           m: 5,
-    //           width: 300,
-    //           height: 180,
-    //           border: "2px solid #E1E2E3 ",
-    //         }}
-    //       >
-    //         <h1>Soil-Moisture</h1>
-    //         <Typography variant="h5" component="div">
-    //           {soilMoisture}
-    //         </Typography>
-    //       </Item>
-    //     </Grid>
-    //     <Grid>
-    //       <Item
-    //         sx={{
-    //           m: 5,
-    //           width: 300,
-    //           height: 180,
-    //           border: "2px solid #E1E2E3 ",
-    //         }}
-    //       >
-    //         <h1>Amount of sunshine</h1>
-    //         <Typography variant="h5" component="div"></Typography>
-    //       </Item>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
   );
 }

@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { setBoothName, setBoothSerialNumber } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useEffect, useState } from 'react';
 //rendering
 import Booth2 from './Booth2';
 
@@ -35,6 +36,27 @@ const AddBtn = styled(SelectBtn)`
   text-transform: uppercase;
   margin: 0.3rem 0.5rem 1rem 0.5rem;
 `;
+const Btn = styled.button`
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+`;
+const CustomBtn = styled(Btn)`
+  width: 100%;
+  border: 3px solid #48742c;
+  background: #48742c;
+  color: white;
+  font-weight: 700;
+  margin: 0.3rem 0.5rem 1rem 0.5rem;
+  &:hover {
+    box-shadow: 0 0 11px rgba(0, 0, 0, 1);
+  }
+`;
 const style = {
   position: 'absolute',
   top: '50%',
@@ -50,48 +72,47 @@ const style = {
 };
 
 export default function AddModal(props) {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   //redux
   const dispatch = useDispatch();
-  const boothName = useSelector((state) => state.booth.boothName);
-  const boothSerialNumber = useSelector(
-    (state) => state.booth.boothSerialNumber
-  );
-  const email = useSelector((state) => state.user);
+  const userId = useSelector((state) => state.user[0]);
 
-  //id 생성함수
-  function createId() {
-    return Math.random().toString(36).substr(2, 9);
-  }
+  const deviceName = useSelector((state) => state.booth.boothName);
 
-  //DB에 부스 이름과 번호를 등록
-  const handleSubmit1 = (e) => {
-    const newId = createId();
-    e.preventDefault();
-    axios
-      .post('http://localhost:3001/booth', {
-        id: newId,
-        boothName,
-        boothSerialNumber,
-        email: email[0],
-      })
-      .then((response) => {
-        //redux 관련 수정 부분
-        // console.log(response.data);
-        dispatch(setBoothName(''));
-        dispatch(setBoothSerialNumber(''));
+  const deviceId = useSelector((state) => state.booth.boothSerialNumber);
 
-        //add버튼 누를시 rerendering 되도록하기 위한
-        const newBooth = { id: newId, boothName, boothSerialNumber };
-        props.addBooth(newBooth);
-        handleClose();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  //DB에 userId와 deviceId 등록
+  const handleSubmit1 = async (event, userId, deviceId, deviceName) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/device/register/newdevice',
+        {
+          userId: userId,
+          deviceId: deviceId,
+          deviceName: deviceName,
+        }
+      );
+
+      // dispatch(setBoothName(''));
+
+      dispatch(setBoothSerialNumber(response.data.deviceId));
+      dispatch(setBoothName(response.data.deviceName));
+      console.log('addModal', deviceId);
+
+      //add버튼 누를시 rerendering 되도록하기 위한
+      const newBooth = { id: deviceId, deviceName };
+
+      props.addBooth(newBooth);
+      navigate('/Farm');
+      handleClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   //상태값 초기화를 위한 코드
@@ -119,40 +140,48 @@ export default function AddModal(props) {
           <Typography id="modal-modal-description" sx={{ mt: 3 }}>
             Booth의 이름과 번호를 정해주세요!
           </Typography>
-          <TextField
-            id="BoothName"
-            label="Booth Name"
-            variant="outlined"
-            sx={{ mt: 3 }}
-            value={boothName}
-            onChange={(e) => dispatch(setBoothName(e.target.value))}
-          />
 
-          {/* input부분 */}
-          <TextField
-            id="BoothSerialNumber"
-            label="Booth Serial Number"
-            variant="outlined"
-            sx={{ mt: 3 }}
-            value={boothSerialNumber}
-            onChange={(e) => dispatch(setBoothSerialNumber(e.target.value))}
-          />
-
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              mt: 3,
-              bgcolor: '#7B95B7',
-              color: 'white',
-              fontSize: 20,
-            }}
-            onClick={(e) => {
-              handleSubmit1(e);
-            }}
+          <Box
+            component="form"
+            onSubmit={(event) =>
+              handleSubmit1(event, userId, deviceId, deviceName)
+            }
           >
-            add
-          </Button>
+            <TextField
+              id="BoothName"
+              label="Booth Name"
+              variant="outlined"
+              sx={{ mt: 3 }}
+              value={deviceName}
+              onChange={(e) => dispatch(setBoothName(e.target.value))}
+            />
+
+            <TextField
+              id="BoothSerialNumber"
+              label="Booth Serial Number"
+              variant="outlined"
+              sx={{ mt: 3 }}
+              value={deviceId}
+              onChange={(e) => dispatch(setBoothSerialNumber(e.target.value))}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{
+                mt: 3,
+                bgcolor: '#7B95B7',
+                color: 'white',
+                fontSize: 20,
+              }}
+              // onClick={(e, boothName, userId, deviceId) => {
+              //   handleSubmit1(e, boothName, userId, deviceId);
+              // }}
+            >
+              add
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </div>

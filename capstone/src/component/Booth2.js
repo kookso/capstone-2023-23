@@ -14,7 +14,7 @@ import styled from 'styled-components';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setCheckedBooths } from '../store/store';
+import { setBoothCookieSerialNumber, setCheckedBooths } from '../store/store';
 
 const BoothBox = styled.div`
   display: flex;
@@ -33,16 +33,25 @@ export default function Booth2(props) {
 
   //delete event 관리
   const dispatch = useDispatch();
-  const checkedBooths = useSelector((state) => state.booth.checkedBooths);
+  const boothCookie = useSelector(
+    (state) => state.boothCookie.setBoothCookieSerialNumber
+  );
+  const checkedBooths = useSelector(
+    (state) => state.checkedBooth.checkedBooths
+  );
 
+  //checkBox로 선택된 deviceId가져옴
   function handleCheckBoxChange(event) {
     event.stopPropagation();
     const checkedId = event.target.value;
 
     if (event.target.checked) {
       dispatch(setCheckedBooths(checkedId));
+
+      // //deletModal에 deviceId 전달하려고 일단 deviceId 담아둠
+      // dispatch(setBoothCookieSerialNumber(event.target.value));
+
       setIsChecked(event.target.checked);
-      console.log(event.target.value);
     } else {
       dispatch(
         setCheckedBooths(checkedBooths.filter((id) => id !== checkedId))
@@ -50,8 +59,14 @@ export default function Booth2(props) {
     }
   }
 
+  //boothCookie에 props.boothInfo.deviceId값을 저장
   function handleClick(event) {
-    navigate('/Farm/booth/plant1/');
+    const deviceId = props.boothInfo.deviceId;
+    dispatch(setBoothCookieSerialNumber(deviceId));
+    console.log('booth2', deviceId);
+
+    //변경한
+    navigate('/Farm/booth/plantIntro/');
   }
   return (
     <BoothBox>
@@ -60,14 +75,20 @@ export default function Booth2(props) {
           checked={isChecked} //checkBox 상태 설정
           onChange={handleCheckBoxChange} //checkBox 상태 변경 핸들러
           inputProps={{ 'aria-label': 'controlled' }}
-          value={props.boothInfo.id} //check된 booth의 id 가져옴
+          value={props.boothInfo.deviceId} //check된 booth의 id 가져옴(서버 요청 후 DB에서 받은)
         />
         <CardContent onClick={() => handleClick()}>
           <Typography gutterBottom variant="h5" component="div">
-            {props.boothInfo.boothName}
+            {props.boothInfo.deviceName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Booth-Serial-Number : {props.boothInfo.boothSerialNumber}
+            device ID : {props.boothInfo.deviceId}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Plant Species : {props.boothInfo.plantSpecies}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Plant Name : {props.boothInfo.plantName}
           </Typography>
         </CardContent>
       </Card>

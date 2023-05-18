@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const BasicLayout = styled.div`
   height: 85vh;
@@ -70,7 +70,7 @@ const CustomInput = styled.input`
   }
 `;
 const SmallText = styled.p`
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -78,7 +78,7 @@ const SmallText = styled.p`
 `;
 const CustomLabel = styled.label`
   color: rgba(0, 0, 0, 0.6);
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   padding: 0;
@@ -126,38 +126,36 @@ const BtnGroup = styled.div`
   margin: 1rem;
 `;
 export default function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e, email, password, firstName, lastName) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3001/user", {
-        email,
-        password,
-        firstName,
-        lastName,
-      })
-      .then((response) => {
-        console.log(response.data);
-        navigate(`/login`);
-        // 회원가입 성공시 처리 로직
-      })
-      .catch((error) => {
-        console.error(error);
-        // 회원가입 실패시 처리 로직
+    console.log(email, password, firstName, lastName);
+    try {
+      const response = await axios.post('http://localhost:8080/register/user', {
+        email: email,
+        pw: password,
+        firstname: firstName,
+        lastname: lastName,
       });
+      console.log(response.data);
+      navigate(`/login`);
+    } catch (error) {
+      console.error(error);
+      // 회원가입 실패시 처리 로직
+    }
   };
 
   useEffect(() => {
     return () => {
-      setEmail("");
-      setPassword("");
-      setFirstName("");
-      setLastName("");
+      setEmail('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
     };
   }, []);
 
@@ -172,7 +170,11 @@ export default function SignUp() {
           <SmallText>
             <AText href="/login">Already have an account?</AText>
           </SmallText>
-          <SignForm onSubmit={handleSubmit}>
+          <SignForm
+            onSubmit={(e) =>
+              handleSubmit(e, email, password, firstName, lastName)
+            }
+          >
             <InputGroup>
               <InputDiv>
                 <CustomLabel>First Name＊</CustomLabel>

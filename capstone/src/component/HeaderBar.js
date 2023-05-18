@@ -42,7 +42,7 @@ export default function HeaderBar() {
               color: '#486284',
             }}
           >
-            초록이
+            Chorok-i
           </Typography>
 
           <div>
