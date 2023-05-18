@@ -33,6 +33,12 @@ public class DeviceController {
         deviceRegisterService.RegistDevice(d.getDeviceId(),d.getUserId(),d.getDeviceName());
         return "success";
     }
+    // 부스를 삭제함
+    @GetMapping("/remove")
+    public String RemoveDevice(@RequestParam int deviceId){
+        deviceManageService.RemoveDevice(deviceId);
+        return "success";
+    }
     // 새로운 식물을 부스에 등록함.
     @PatchMapping("/register/plant" )
     public DeviceDto AddPlant(@RequestBody  DeviceDto d){
@@ -47,7 +53,6 @@ public class DeviceController {
     @GetMapping("/load/all")
     public List<DeviceDto> LoadAllDevice(@RequestParam int userId){
         return(deviceManageService.LoadAllDevice(userId));
-
     }
     // 유저의 특정 디바이스 정보를 불러옴.
     @GetMapping("/load/one")
@@ -55,6 +60,7 @@ public class DeviceController {
         return(deviceManageService.LoadOneDevice(deviceId));
     }
 }
+
 
 @Getter
 @Setter

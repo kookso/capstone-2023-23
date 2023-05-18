@@ -33,6 +33,7 @@ public class DataInController {
 
             System.out.println(file);
             System.out.println(deviceId);
+
             String message = imageInService.ImageSave(file, deviceId);
 
             if (message == "Fail"){

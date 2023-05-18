@@ -5,6 +5,7 @@ import com.example.capstone.entity.DeviceEntity;
 import com.example.capstone.repository.DeviceRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class DeviceManageService {
         DeviceDto rtn = device.EntityToDto();
 
         return rtn;
+    }
+    // 부스를 삭제함
+    @Transactional
+    public void RemoveDevice(int deviceId){
+        deviceRepository.deleteByDeviceId(deviceId);
     }
 
 
