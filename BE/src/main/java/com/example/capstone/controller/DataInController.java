@@ -3,6 +3,7 @@ package com.example.capstone.controller;
 import com.example.capstone.entity.LogEntity;
 import com.example.capstone.service.datain.ImageInService;
 import com.example.capstone.service.datain.LogSaveService;
+import com.google.type.DateTime;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,19 @@ public class DataInController {
 
             System.out.println(file);
             System.out.println(deviceId);
-
+            int d = LocalDateTime.now().getHour();
             String message = imageInService.ImageSave(file, deviceId);
 
+            LocalDateTime now = LocalDateTime.now();
+            String year = String.valueOf(now.getYear());
+            String month = String.valueOf(now.getMonthValue());
+            String day = String.valueOf(now.getDayOfMonth());
+            String date = year+"-"+month+"-"+day;
+
+
+            if(d > 11){
+                imageInService.uploadImageToS3("capstoneimage",deviceId+"/"+date,"/home/ubuntu/Image/"+deviceId+".jpg");
+            }
             if (message == "Fail"){
                 return new ResponseEntity<>("Failed to upload image", HttpStatus.INTERNAL_SERVER_ERROR);
             }

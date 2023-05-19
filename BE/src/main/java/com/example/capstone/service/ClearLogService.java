@@ -10,16 +10,20 @@ import javax.transaction.Transactional;
 @Service
 public class ClearLogService {
 
-    private final LogRepository logRepository;
+//    private final LogRepository logRepository;
 
-    @Autowired
-    public ClearLogService(LogRepository logRepository) {
-        this.logRepository = logRepository;
-    }
-
-    @Scheduled(cron = "50 59 23 * * ?")
-    @Transactional
-    public void deleteAllRows() {
-        logRepository.deleteAll();
-    }
+//    @Autowired
+//    public ClearLogService(LogRepository logRepository) {
+//        this.logRepository = logRepository;
+//    }
+//
+//    @Scheduled(cron = "00 59 23 * * ?")
+//    @Transactional
+//    public void deleteAllRows() {
+//
+//
+//
+//        //일일로그 정리
+//        logRepository.deleteAll();
+//    }
 }
