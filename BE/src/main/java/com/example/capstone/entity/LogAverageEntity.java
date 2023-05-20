@@ -1,5 +1,6 @@
 package com.example.capstone.entity;
 
+import com.example.capstone.dto.LogDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,13 @@ public class LogAverageEntity {
 
     @Column(nullable = false)
     private double soilMoisture;
+
+    public LogDto EntityToDto(){
+        int hour = this.getLogTime().getHour();
+
+        LogDto rtn = new LogDto(this.getHumidity(),this.getTemperature(),this.getSoilMoisture(),hour);
+
+        return rtn;
+    }
 
 }

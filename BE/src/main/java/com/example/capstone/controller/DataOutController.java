@@ -1,6 +1,7 @@
 package com.example.capstone.controller;
 
 
+import com.example.capstone.dto.AverageLogDto;
 import com.example.capstone.dto.LogDto;
 import com.example.capstone.service.dataout.SoilLogService;
 import com.example.capstone.service.dataout.TemperatureLogService;
@@ -81,7 +82,6 @@ public class DataOutController {
 
             return ResponseEntity
                     .ok()
-                    .contentType(MediaType.IMAGE_JPEG)
                     .body(encodedImage);
 
         } catch (IOException e) {
@@ -91,6 +91,10 @@ public class DataOutController {
         }
     }
 
+//    @GetMapping("/average")
+//    public AverageLogDto getDto(){
+//
+//    }
 
 
 
@@ -115,7 +119,7 @@ public class DataOutController {
     }
     @GetMapping("/total")
     public ArrayList<LogDto> getTotal(@RequestParam int deviceId){
-        ArrayList<LogDto> data = totalLogService.LogEntityToRealTimeData(deviceId);
+        ArrayList<LogDto> data = totalLogService.getAve(deviceId);
         return data;
     }
 }

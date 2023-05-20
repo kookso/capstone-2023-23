@@ -33,7 +33,7 @@ public class LogService {
         return a;
     }
 
-    @Scheduled(cron = "00 59 23 * * ?")
+    @Scheduled(cron = "00 59 22 * * ?")
     @Transactional
     public void deleteAllRows() {
 
@@ -42,7 +42,7 @@ public class LogService {
     }
 
     // 로그 평균값 저장하는 매소드
-    @Scheduled(cron = "00 11 3 * * ?")
+    @Scheduled(cron = "00 55 23 * * ?")
     @Transactional
     public void SaveAve(){
         //모든 device들의 Log를 불러와서 평균값 낸 뒤, 그 값들을 이용해서 LogAverageEntity를 생성, 저장함.
