@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.example.capstone.entity.LogEntity;
+import com.example.capstone.repository.DeviceRepository;
+import com.example.capstone.repository.LogAverageRepository;
 import com.example.capstone.repository.LogRepository;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,11 +19,13 @@ class LogServiceTest {
 
     @Mock
     private LogRepository logRepositoryMock;
+    private DeviceRepository d;
+    private LogAverageRepository la;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        logService = new LogService(logRepositoryMock);
+        logService = new LogService(logRepositoryMock,d,la);
     }
 
     @Test

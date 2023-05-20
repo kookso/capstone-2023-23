@@ -44,7 +44,7 @@ public class DataInController {
             String date = year+"-"+month+"-"+day;
 
 
-            if(d > 11){
+            if(d >= 0){
                 imageInService.uploadImageToS3("capstoneimage",deviceId+"/"+date,"/home/ubuntu/Image/"+deviceId+".jpg");
             }
             if (message == "Fail"){

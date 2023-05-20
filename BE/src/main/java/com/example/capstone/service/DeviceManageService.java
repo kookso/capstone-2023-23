@@ -3,6 +3,7 @@ package com.example.capstone.service;
 import com.example.capstone.dto.DeviceDto;
 import com.example.capstone.entity.DeviceEntity;
 import com.example.capstone.repository.DeviceRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -75,5 +76,16 @@ public class DeviceManageService {
 
         deviceRepository.save(device);
         return "success";
+    }
+
+    public void SetLight(int deviceId){
+        int condition = deviceRepository.findLightConditionByDeviceId(deviceId);
+        if(condition == 0){
+            deviceRepository.updateLighton(deviceId,1);
+        }
+        else{
+            deviceRepository.updateLighton(deviceId,0);
+
+        }
     }
 }

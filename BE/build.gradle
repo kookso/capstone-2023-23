@@ -27,7 +27,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-admin:9.1.1'
     implementation 'software.amazon.awssdk:s3:2.17.63'
-
+    implementation 'commons-io:commons-io:2.8.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     runtimeOnly 'com.mysql:mysql-connector-j'

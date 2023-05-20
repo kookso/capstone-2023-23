@@ -59,6 +59,10 @@ public class DeviceController {
     public DeviceDto LoadOneDevice(@RequestParam int deviceId){
         return(deviceManageService.LoadOneDevice(deviceId));
     }
+    @PatchMapping("/turnon")
+    public void TurnOnLight(@RequestParam int deviceId){
+        deviceManageService.SetLight(deviceId);
+    }
 }
 
 

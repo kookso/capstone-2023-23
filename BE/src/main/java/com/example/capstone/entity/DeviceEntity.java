@@ -37,6 +37,9 @@ public class DeviceEntity {
     @Column(name = "soilMoisture", nullable = true)
     private double soilMoisture;
 
+    @Column(name = "lightOn")
+    private int lightOn = 0;
+
 
     public DeviceEntity(int deviceId, MemberEntity user, String deviceName){
         this.deviceId = deviceId;
