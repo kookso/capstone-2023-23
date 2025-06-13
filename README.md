@@ -33,7 +33,7 @@
       - 매일매일 식물의 성장과정을 확인하고, 일지를 작성할 수 있어 식물의 성장 상태를 쉽게 파악할 수 있습니다.
 ---
 # 부스사진
-![img](./images/img2.png)
+![img](https://github.com/user-attachments/assets/021d03e7-b1f6-4608-8a19-7b7bacb77731)
 ---
 # 시연영상
 https://www.youtube.com/embed/npBVgDlOBvg
